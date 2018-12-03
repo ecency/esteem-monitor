@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "691881103144",
+    "firebase_url": "https://esteem-monitor.firebaseio.com",
+    "project_id": "esteem-monitor",
+    "storage_bucket": "esteem-monitor.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:691881103144:android:e9c372964fecff2c",
+        "android_client_info": {
+          "package_name": "app.esteem.monitor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "691881103144-if043udau4u8k0r0o40flcvah2akbaev.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtlkmBRkRMUhJv8erVi78l-Ons3lkHBRQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
