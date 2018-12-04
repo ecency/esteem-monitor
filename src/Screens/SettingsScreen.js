@@ -118,7 +118,7 @@ class SettingsScreen extends Component {
     };
     render() {
         return (
-            <View style={{backgroundColor:'#082a60'}}>
+            <View>
                 <Header style={{backgroundColor: '#72c9ff'}}>
                     <Left/>
                     <Body>
@@ -126,7 +126,7 @@ class SettingsScreen extends Component {
                     </Body>
                     <Right/>
                 </Header>
-                <View style={{flexDirection: 'row', width: "100%"}}>
+                <View style={{flexDirection: 'row', width: "100%",padding:10}}>
                     <View style={{width: "70%"}}>
                         <Text>
                             Participation alert under 75%

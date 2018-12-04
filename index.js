@@ -7,7 +7,6 @@ import { YellowBox } from 'react-native';
 import bgMessaging from './src/components/Firebase/bgMessaging';
 import {checkPermission, createNotificationListeners} from "./src/components/Firebase/fbConfig";
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
-//import {checkPermission,createNotificationListeners} from './src/components/Firebase/fbConfig';
 
 checkPermission();
 createNotificationListeners();
