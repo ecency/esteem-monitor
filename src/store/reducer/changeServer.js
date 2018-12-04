@@ -9,17 +9,11 @@ const initialState={
 const reducer =(state=initialState,action)=> {
     switch (action.type){
         case CHANGE_SERVER_URL:
-            if(action.serverUrl){
-                AsyncStorage.setItem('serverUrl',action.serverUrl);
-            }
             return {
                 ...state,
                 serverUrl:action.serverUrl
             };
         case CHANGE_MARKETDATA_URL:
-            if(action.marketDataUrl){
-                AsyncStorage.setItem('marketDataUrl',action.marketDataUrl)
-            }
             return {
                 ...state,
                 marketDataUrl:action.marketDataUrl

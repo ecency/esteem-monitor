@@ -18,18 +18,23 @@ class StatusScreen extends Component {
         opacity: 0,
     };
     handleMarketInfo = async () => {
-        const data = await fetch(this.props.marketDataUrl);
-        const json = await data.json();
-        this.setState({
-            CurrencyInfo: json,
-        })
+        try{
+            const data = await fetch(this.props.marketDataUrl);
+            const json = await data.json();
+            this.setState({
+                CurrencyInfo: json,
+            })
+        }catch (e) {
+            console.log('Error occured while fetching data', e)
+        }
+
     };
 
     componentWillMount() {
         this.fetchData();
         this.handleMarketInfo();
         fetchdata = setInterval(() => this.fetchData(), 3000);
-        fetchMarketInfo = setInterval(() => this.handleMarketInfo(), 60000);
+        fetchMarketInfo = setInterval(() => this.handleMarketInfo(), 30000);
     }
 
     componentWillUnmount() {
