@@ -4,6 +4,8 @@ import  StatusScreen from './src/Screens/StatusScreen';
 import  WitnessesScreen from './src/Screens/WitnessNavigation';
 import SettingsScreen from './src/Screens/SettingsScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import styles from './src/GlobalStyles/styles';
+import myColors from './src/GlobalStyles/colorConfig';
 
 export default createBottomTabNavigator(
     {
@@ -25,9 +27,9 @@ export default createBottomTabNavigator(
             },
         }),
         tabBarOptions: {
-            activeTintColor: 'blue',
-            inactiveTintColor: 'white',
-            style:{backgroundColor:'#72c9ff'},
+            activeTintColor: myColors.activeTintColor,
+            inactiveTintColor: myColors.inactiveTintColor,
+            style:styles.footerTab,
             labelStyle:{fontSize:14},
         },
     }

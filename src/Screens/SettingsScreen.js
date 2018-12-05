@@ -5,6 +5,7 @@ import {View, Text, Switch, AsyncStorage, TextInput,TouchableOpacity,ToastAndroi
 import {Header, Title, Right, Left, Body} from 'native-base';
 import {updateParticipation, getParticipation} from "../components/ConnectionToServer/serverConfig";
 import Icon from 'react-native-vector-icons/Foundation';
+import globalStyles from '../GlobalStyles/styles';
 
 let fcmtoken = null;
 class SettingsScreen extends Component {
@@ -118,17 +119,17 @@ class SettingsScreen extends Component {
     };
     render() {
         return (
-            <View>
-                <Header style={{backgroundColor: '#72c9ff'}}>
+            <View style={globalStyles.contentSettings}>
+                <Header style={globalStyles.headers}>
                     <Left/>
                     <Body>
-                    <Title>Settings</Title>
+                    <Title style={globalStyles.headerTextColor}>Settings</Title>
                     </Body>
                     <Right/>
                 </Header>
                 <View style={{flexDirection: 'row', width: "100%",padding:10}}>
                     <View style={{width: "70%"}}>
-                        <Text>
+                        <Text style={globalStyles.defaultText}>
                             Participation alert under 75%
                         </Text>
                     </View>
@@ -142,7 +143,7 @@ class SettingsScreen extends Component {
                 <View>
                     <View style={{flexDirection: 'row'}}>
                         <View style={{ alignItems: 'center', justifyContent: 'center',width:'25%'}}>
-                            <Text>Server URL: </Text>
+                            <Text style={globalStyles.defaultText}>Server URL: </Text>
                         </View>
                         <View style={{ alignItems: 'flex-start', justifyContent: 'center',width:'65%'}}>
                             <TextInput
@@ -158,7 +159,7 @@ class SettingsScreen extends Component {
                     </View>
                     <View style={{flexDirection: 'row'}}>
                         <View style={{ alignItems: 'center', justifyContent: 'center',width:'25%'}}>
-                            <Text>Market Url:</Text>
+                            <Text style={globalStyles.defaultText}>Market Url:</Text>
                         </View>
                         <View style={{ alignItems: 'flex-start', justifyContent: 'center',width:'65%'}}>
                             <TextInput

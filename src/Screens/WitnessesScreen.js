@@ -19,10 +19,9 @@ import {
     getSubscription,
     deleteSubscription,
     updateSubscription,
-    getParticipation,
-    updateParticipation
 } from './../components/ConnectionToServer/serverConfig';
-
+import myColors from '../GlobalStyles/colorConfig';
+import globalStyles from '../GlobalStyles/styles';
 const fcmToken = null;
 let subscribedWitnesses = null;
 
@@ -133,16 +132,16 @@ class WitnessesScreen extends Component {
     };
     render() {
         return (
-            <View style={{paddingBottom: 60}}>
-                <Header style={{backgroundColor: '#72c9ff'}}>
+            <View style={globalStyles.contentWitnessScreen}>
+                <Header style={globalStyles.headers}>
                     <Left/>
                     <Body>
-                    <Title>Witnesses</Title>
+                    <Title  style={globalStyles.headerTextColor}>Witnesses</Title>
                     </Body>
                     <Right>
                         <ActivityIndicator
                             size="large"
-                            color="red"
+                            color={myColors.activityIndicatorColor}
                             animating={this.state.fetching}
                         />
                         <Button
@@ -152,7 +151,7 @@ class WitnessesScreen extends Component {
                             <FontAwesome
                                 size={22}
                                 name="refresh"
-                                color="white"
+                                color={myColors.headerButtonColor}
                             />
                         </Button>
                     </Right>

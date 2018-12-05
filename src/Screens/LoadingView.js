@@ -1,9 +1,12 @@
 import React from 'react';
-import {View,Text} from 'react-native';
+import {View,Image} from 'react-native';
 const LoadingView =()=> {
     return (
-        <View style={{flex:1, alignItems:'center',justifyContent:'center'}}>
-            <Text>Loading...Please wait</Text>
+        <View style={{flex:1, width:'100%',height:'100%',alignItems:'center',justifyContent:'center'}}>
+            <Image
+                source={require('./about.png')}
+                resizeMode = 'center'
+            />
         </View>
     );
 };

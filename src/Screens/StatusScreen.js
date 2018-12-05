@@ -8,6 +8,8 @@ import MySepView from '../components/SeparotorView'
 import {notificationListener, notificationOpenedListener} from '../components/Firebase/fbConfig';
 import MyView from '../components/MyView';
 import htmlContent from '../components/StatusScreenUI/htmlContent';
+import globalStyles from'../GlobalStyles/styles';
+import myColors from '../GlobalStyles/colorConfig';
 const fetchdata = null;
 const fetchMarketInfo = null;
 
@@ -64,15 +66,15 @@ class StatusScreen extends Component {
     render() {
         return (
             <View>
-                <Header style={{backgroundColor: '#72c9ff'}}>
+                <Header style={globalStyles.headers}>
                     <Left/>
                     <Body>
-                    <Title>Dashboard</Title>
+                    <Title style={globalStyles.headerTextColor}>Dashboard</Title>
                     </Body>
                     <Right style={{alignItems: "center", justifyContent: 'flex-end'}}>
                         <ActivityIndicator
                             size={35}
-                            color="red"
+                            color={myColors.activityIndicatorColor}
                             animating={this.state.true}
                             style={{height: 80, marginTop: 10, opacity: this.state.opacity}}
                         />
@@ -82,15 +84,15 @@ class StatusScreen extends Component {
                             <FontAwesome
                                 size={28}
                                 name="md-refresh"
-                                color="white"
+                                color={myColors.headerButtonColor}
                             />
                         </Button>
                     </Right>
                 </Header>
                 <ScrollView>
-                    <View style={styles.content}>
+                    <View style={globalStyles.contentDashboard}>
                         <View style={styles.welcomeContainer}>
-                            <Text style={styles.welcomeText}>Welcome to Steem Monitor</Text>
+                            <Text style={globalStyles.defaultBoldText}>Welcome to Steem Monitor</Text>
                         </View>
                         <MySepView
                             first={"Block:"}
