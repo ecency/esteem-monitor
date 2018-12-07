@@ -60,9 +60,9 @@ const updateParticipation = async (deviceId,status)=>{
                 participation: status,
             }),
         }).then((response)=>response.json())
-            .catch((error)=>console.error("error on participation",error));
+            .catch((error)=>console.error("Error on updating participation",error));
     } catch (e) {
-        console.log('Participationda xato',e)
+        console.log('Error on updating participation',e)
     }
 
     //return $http.post("http://api.esteem.ws:8080/api/wdevicesp",{deviceid:deviceId,participation:status})
@@ -70,7 +70,6 @@ const updateParticipation = async (deviceId,status)=>{
 const getParticipation = async (deviceId)=>{
     console.log("Participation ",deviceId);
     let response = await fetch("http://api.esteem.ws:8080/api/wdevicesp/"+deviceId);
-    // let responseJson = await response.json();
     console.log("Participation Response ",response);
    // return $http.get("http://api.esteem.ws:8080/api/wdevicesp/"+deviceId)
 };
