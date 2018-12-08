@@ -1,9 +1,9 @@
-import {AsyncStorage} from 'react-native';
-import {CHANGE_MARKETDATA_URL,CHANGE_SERVER_URL} from '../action/actionTypes';
+import {CHANGE_MARKETDATA_URL,CHANGE_SERVER_URL,PARTICIPATION_ALERT} from '../action/actionTypes';
 
 const initialState={
     serverUrl: "https://api.steemit.com",
-    marketDataUrl:"http://api.esteem.ws:8080/api/market-data/"
+    marketDataUrl:"http://api.esteem.ws:8080/api/market-data/",
+    participationAlert:false,
 };
 
 const reducer =(state=initialState,action)=> {
@@ -17,6 +17,11 @@ const reducer =(state=initialState,action)=> {
             return {
                 ...state,
                 marketDataUrl:action.marketDataUrl
+            };
+        case PARTICIPATION_ALERT:
+            return {
+                ...state,
+                participationAlert:action.participationAlert
             };
         default:
             return state;

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {changeMarketDataUrl, changeServerUrl} from '../store/action/changeServer';
+import {changeMarketDataUrl, changeServerUrl,toggleParticipation} from '../store/action/changeServer';
 import {View, Text, Switch, AsyncStorage, TextInput, TouchableOpacity, ToastAndroid} from 'react-native';
 import {Header, Title, Right, Left, Body} from 'native-base';
 import {updateParticipation, getParticipation} from "../components/ConnectionToServer/serverConfig";
@@ -18,13 +18,10 @@ class SettingsScreen extends Component {
         textinput2: ''
     };
     handleOnToggle = async (value) => {
-        this.setState({
-            value: !this.state.value
-        });
+        this.props.onToggleParticipation(value);
         if (fcmtoken) {
             await updateParticipation(fcmtoken, value);
         }
-
     };
 
     async componentWillMount() {
@@ -144,8 +141,8 @@ class SettingsScreen extends Component {
                     </View>
                     <View style={{width: "30%"}}>
                         <Switch
-                            onValueChange={this.handleOnToggle}
-                            value={this.state.value}
+                            onValueChange={(value)=>this.handleOnToggle(value)}
+                            value={this.props.participationAlert}
                         />
                     </View>
                 </View>
@@ -191,13 +188,15 @@ class SettingsScreen extends Component {
 const mapStateToProps = state => {
     return {
         serverUrl: state.server.serverUrl,
-        marketDataUrl: state.server.marketDataUrl
+        marketDataUrl: state.server.marketDataUrl,
+        participationAlert:state.server.participationAlert
     };
 };
 const mapDispatchToProps = dispatch => {
     return {
         onChangeServerUrl: (url) => dispatch(changeServerUrl(url)),
-        onChangeMarketDataUrl: (url) => dispatch(changeMarketDataUrl(url))
+        onChangeMarketDataUrl: (url) => dispatch(changeMarketDataUrl(url)),
+        onToggleParticipation:(value) => dispatch(toggleParticipation(value))
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsScreen);

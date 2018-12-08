@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View, Text, ActivityIndicator, StyleSheet, WebView, ScrollView} from 'react-native';
 import {Header, Title, Button, Right, Left, Body} from 'native-base';
-import FontAwesome from 'react-native-vector-icons/Ionicons'
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import * as dsteem from 'dsteem';
 import MySepView from '../components/SeparotorView'
 import {notificationListener, notificationOpenedListener} from '../components/Firebase/fbConfig';
@@ -82,8 +82,8 @@ class StatusScreen extends Component {
                                 onPress={() => this.fetchData()}
                         >
                             <FontAwesome
-                                size={28}
-                                name="md-refresh"
+                                size={22}
+                                name="refresh"
                                 color={myColors.headerButtonColor}
                             />
                         </Button>
