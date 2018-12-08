@@ -11,31 +11,21 @@ With Esteem Monitor you can:
 
 ![](esteem.png)
 
-## Installation
+## Requirements
+To deploy the project and launch the application you need:
+-  Android Studio
+-  Android emulator or device
+-  Note: This app is for  Android only. In few days we will add for iOS too
 
-OS X & Linux & Windows:
+##Deployment
+Clone by git or download the repository. Open it in Android Studio through File -> Open...
 
-```sh
-npm install app.esteem.monitor --save
-```
-Note: This app is for  Android only. In few days we will add for iOS too
 
 ## Usage example
 
 ![](1.png)
 
-## Development setup
 
- Development dependencies 
- -  "dsteem": "^0.9.0",
- -  "native-base": "^2.7.2",
- -  "react": "16.3.1",
- -  "react-native": "0.55.4",
- -  "react-native-firebase": "^5.1.0",
- -  "react-redux": "^5.1.1",
- -  "redux": "^4.0.1",
- -  "babel-preset-react-native": "4.0.0",
- },
 ## What is Steem?
 Steem is a blockchain-based social media platform where anyone can earn rewards. The Steem blockchain not only holds a cryptocurrency token called STEEM, but also content created by its users, a system to vote on that content, and many other features you would find on popular social networking sites.
 
