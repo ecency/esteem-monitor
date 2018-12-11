@@ -9,9 +9,9 @@ const htmlContent =
   {
   "autosize": true,
   "symbol": "BITTREX:STEEMUSD",
-  "interval": "D",
+  "interval": "60",
   "timezone": "Etc/UTC",
-  "theme": "Light",
+  "theme": "Dark",
   "style": "2",
   "locale": "en",
   "toolbar_bg": "#f1f3f6",

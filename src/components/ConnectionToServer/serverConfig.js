@@ -3,8 +3,6 @@ import React from 'react';
 
 const saveSubscription = async (deviceId,witness) =>{
     try {
-        console.log("DeviceId:",deviceId);
-        console.log("Saved Witness",witness);
         await fetch("http://api.esteem.ws:8080/api/wdevices", {
             method: 'POST',
             headers: {
@@ -15,14 +13,13 @@ const saveSubscription = async (deviceId,witness) =>{
                 witness: witness,
             }),
         }).then((response)=>response.json())
-            .catch((error)=>console.error("error on subscription",error));
+            .catch((error)=>alert("error on subscription",error));
     } catch (e) {
-        console.log('Subscriptionda xato',e)
+        alert(e)
     }
     //return $http.post("http://api.esteem.ws:8080/api/wdevices",{deviceid:deviceid,witness:witness})
 } ;
 function getSubscription(deviceId){
-    //console.log("getSubscription");
     return fetch("http://api.esteem.ws:8080/api/wdevices/"+deviceId)
         .then((response)=> response.json())
         .then((responseJson) => {
@@ -31,11 +28,10 @@ function getSubscription(deviceId){
             for (i = 0; i < responseJson.length; i++) {
                 subscribedWitnesses[i] = responseJson[i].witness;
             }
-            console.log("witneeeeee", subscribedWitnesses);
             return subscribedWitnesses;
         })
         .catch((error)=> {
-            console.log(error);
+            alert(error);
         })
     //return $http.get("http://api.esteem.ws:8080/api/wdevices/"+deviceid)
 }
@@ -48,8 +44,6 @@ const updateSubscription=(deviceId,witness,del)=>{
 };
 const updateParticipation = async (deviceId,status)=>{
     try {
-        console.log("DeviceId:",deviceId);
-        console.log("Status",status);
         await fetch("http://api.esteem.ws:8080/api/wdevicesp", {
             method: 'POST',
             headers: {
@@ -60,29 +54,25 @@ const updateParticipation = async (deviceId,status)=>{
                 participation: status,
             }),
         }).then((response)=>response.json())
-            .catch((error)=>console.error("Error on updating participation",error));
+            .catch((error)=>alert("Error on updating participation",error));
     } catch (e) {
-        console.log('Error on updating participation',e)
+        alert('Error on updating participation',e)
     }
 
     //return $http.post("http://api.esteem.ws:8080/api/wdevicesp",{deviceid:deviceId,participation:status})
 };
 const getParticipation = async (deviceId)=>{
-    console.log("Participation ",deviceId);
     let response = await fetch("http://api.esteem.ws:8080/api/wdevicesp/"+deviceId);
-    console.log("Participation Response ",response);
    // return $http.get("http://api.esteem.ws:8080/api/wdevicesp/"+deviceId)
 };
 const deleteSubscription = async (deviceId,witness)=>{
     try {
-        console.log("DeviceId:",deviceId);
-        console.log("Deleted Witness",witness);
         await fetch("http://api.esteem.ws:8080/api/wdevices/"+deviceId+"/"+witness, {
             method: 'DELETE',
     }).then((response)=>response.json())
-        .catch((error)=>console.error("error on delete subscription",error));
+        .catch((error)=>alert("error on delete subscription",error));
 } catch (e) {
-    console.log('Subscription delete',e)
+    alert(e)
 }
     //return $http.delete("http://api.esteem.ws:8080/api/wdevices/"+deviceId+"/"+witness)
 };

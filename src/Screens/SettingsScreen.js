@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {changeMarketDataUrl, changeServerUrl,toggleParticipation} from '../store/action/changeServer';
+import {changeMarketDataUrl, changeServerUrl, toggleParticipation, changeTheme} from '../store/action/changeServer';
 import {View, Text, Switch, AsyncStorage, TextInput, TouchableOpacity, ToastAndroid} from 'react-native';
 import {Header, Title, Right, Left, Body} from 'native-base';
 import {updateParticipation, getParticipation} from "../components/ConnectionToServer/serverConfig";
 import Icon from 'react-native-vector-icons/Foundation';
 import globalStyles from '../GlobalStyles/styles';
+import myColors from "../GlobalStyles/colorConfig";
 
 let fcmtoken = null;
 
@@ -15,7 +16,8 @@ class SettingsScreen extends Component {
         editable1: false,
         editable2: false,
         textinput1: '',
-        textinput2: ''
+        textinput2: '',
+        themeSwitch: (this.props.mode === 'day')
     };
     handleOnToggle = async (value) => {
         this.props.onToggleParticipation(value);
@@ -36,7 +38,7 @@ class SettingsScreen extends Component {
                 getParticipation(fcmtoken);
             }
         } catch (e) {
-            console.log(e);
+            alert(e)
         }
     };
     handleServerUrlChanged = (url) => {
@@ -86,7 +88,7 @@ class SettingsScreen extends Component {
         if (this.state.editable1) {
             return (
                 <TouchableOpacity onPress={() => this.handleServerUrlChanged(this.state.textinput1)}>
-                    <Text>OK</Text>
+                    <Text style={{color: myColors.defaultTextColor}}>OK</Text>
                 </TouchableOpacity>
             );
         } else {
@@ -97,6 +99,7 @@ class SettingsScreen extends Component {
                     <Icon
                         name="pencil"
                         size={20}
+                        color={myColors.defaultTextColor}
                     />
                 </TouchableOpacity>
             );
@@ -106,7 +109,7 @@ class SettingsScreen extends Component {
         if (this.state.editable2) {
             return (
                 <TouchableOpacity onPress={() => this.handleMarketDataUrlChanged(this.state.textinput2)}>
-                    <Text>OK</Text>
+                    <Text style={{color: myColors.defaultTextColor}}>OK</Text>
                 </TouchableOpacity>
             );
         } else {
@@ -117,8 +120,54 @@ class SettingsScreen extends Component {
                     <Icon
                         name="pencil"
                         size={20}
+                        color={myColors.defaultTextColor}
                     />
                 </TouchableOpacity>
+            );
+        }
+    };
+    handleTheme = (value) => {
+        this.props.changeTheme(value);
+        this.setState({
+            themeSwitch: !this.state.themeSwitch
+        });
+        this.forceUpdate();
+    };
+    renderThemeSwitch = () => {
+        if (this.state.themeSwitch) {
+            return (
+                <View style={{flexDirection: 'row', width: '100%',paddingTop:20}}>
+                    <View style={{width: '25%', alignItems: 'center'}}>
+                        <Text style={{color: myColors.defaultTextColor}}>Day Mode</Text>
+                    </View>
+                    <View style={{width: '75%', justifyContent: 'center', alignItems: 'flex-end'}}>
+                        <Switch
+                            onTintColor={myColors.circleWitnessScreen}
+                            tintColor={myColors.defaultTextColor}
+                            thumbTintColor={myColors.witnessListSecondaryTextColor}
+                            onValueChange={(value) => this.handleTheme(value)}
+                            value={this.state.themeSwitch}
+                        />
+                    </View>
+                </View>
+            );
+
+        } else {
+            return (
+                <View style={{flexDirection: 'row', width: '100%',paddingTop:20}}>
+                    <View style={{width: '25%', alignItems: 'center'}}>
+                        <Text style={{color: myColors.defaultTextColor}}>Night Mode</Text>
+                    </View>
+                    <View style={{width: '75%', justifyContent: 'center', alignItems: 'flex-end'}}>
+                        <Switch
+                            onTintColor={myColors.circleWitnessScreen}
+                            tintColor={myColors.defaultTextColor}
+                            thumbTintColor={myColors.witnessListSecondaryTextColor}
+                            onValueChange={(value) => this.handleTheme(value)}
+                            value={this.state.themeSwitch}
+                        />
+                    </View>
+                </View>
             );
         }
     };
@@ -129,7 +178,7 @@ class SettingsScreen extends Component {
                 <Header style={globalStyles.headers}>
                     <Left/>
                     <Body>
-                    <Title style={globalStyles.headerTextColor}>Settings</Title>
+                    <Title style={globalStyles.headerText}>Settings</Title>
                     </Body>
                     <Right/>
                 </Header>
@@ -141,7 +190,10 @@ class SettingsScreen extends Component {
                     </View>
                     <View style={{width: "30%"}}>
                         <Switch
-                            onValueChange={(value)=>this.handleOnToggle(value)}
+                            onTintColor={myColors.circleWitnessScreen}
+                            tintColor={myColors.defaultTextColor}
+                            thumbTintColor={myColors.witnessListSecondaryTextColor}
+                            onValueChange={(value) => this.handleOnToggle(value)}
                             value={this.props.participationAlert}
                         />
                     </View>
@@ -153,6 +205,7 @@ class SettingsScreen extends Component {
                         </View>
                         <View style={{alignItems: 'flex-start', justifyContent: 'center', width: '65%'}}>
                             <TextInput
+                                placeholderTextColor={myColors.witnessListSecondaryTextColor}
                                 style={{fontSize: 12, width: '100%'}}
                                 placeholder={this.props.serverUrl}
                                 editable={this.state.editable1}
@@ -169,6 +222,7 @@ class SettingsScreen extends Component {
                         </View>
                         <View style={{alignItems: 'flex-start', justifyContent: 'center', width: '65%'}}>
                             <TextInput
+                                placeholderTextColor={myColors.witnessListSecondaryTextColor}
                                 style={{fontSize: 12, width: '100%'}}
                                 placeholder={this.props.marketDataUrl}
                                 editable={this.state.editable2}
@@ -178,6 +232,9 @@ class SettingsScreen extends Component {
                         <View style={{alignItems: 'center', justifyContent: 'center', width: '10%'}}>
                             {this.changeMarketDataView()}
                         </View>
+                    </View>
+                    <View>
+                        {this.renderThemeSwitch()}
                     </View>
                 </View>
             </View>
@@ -189,14 +246,16 @@ const mapStateToProps = state => {
     return {
         serverUrl: state.server.serverUrl,
         marketDataUrl: state.server.marketDataUrl,
-        participationAlert:state.server.participationAlert
+        participationAlert: state.server.participationAlert,
+        mode: state.server.mode
     };
 };
 const mapDispatchToProps = dispatch => {
     return {
         onChangeServerUrl: (url) => dispatch(changeServerUrl(url)),
         onChangeMarketDataUrl: (url) => dispatch(changeMarketDataUrl(url)),
-        onToggleParticipation:(value) => dispatch(toggleParticipation(value))
+        onToggleParticipation: (value) => dispatch(toggleParticipation(value)),
+        changeTheme: (value) => dispatch(changeTheme(value))
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsScreen);

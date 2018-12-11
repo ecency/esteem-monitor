@@ -1,13 +1,10 @@
 # Esteem Monitor
 > Esteem Monitor is to observe steem blockchain blocks ,  steem ,sbd markets and getting push notifications about missed blocks.
 
-
-
 With Esteem Monitor you can:
  - monitor steem blockchain (updated in  every 3 seconds)                                     
  - get the latest prices for steem and sbd with beautiful chart from Tradingview
  - Subscribe to witnesses and get push notifications about missed blocks
-
 
 ![](esteem.png)
 
@@ -17,8 +14,8 @@ To deploy the project and launch the application you need:
 -  Android emulator or device
 -  Note: This app is for  Android only. In few days we will add for iOS too
 
-##Deployment
-Clone by git or download the repository. Open it in Android Studio through File -> Open...
+## Deployment
+ Clone by git or download the repository. Open it in Android Studio through File -> Open...
 
 
 ## Usage example
@@ -29,7 +26,7 @@ Clone by git or download the repository. Open it in Android Studio through File 
 ## What is Steem?
 Steem is a blockchain-based social media platform where anyone can earn rewards. The Steem blockchain not only holds a cryptocurrency token called STEEM, but also content created by its users, a system to vote on that content, and many other features you would find on popular social networking sites.
 
-Visit http://www.esteem.app for more info about development and project.
+Visit httpa://esteem.app for more info about development and project.
 
 # License
 

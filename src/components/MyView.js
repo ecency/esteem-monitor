@@ -27,7 +27,7 @@ export default class MyView extends Component{
         let duration4 = Math.round(((now.getTime()-steem_btc_update.getTime())/(60*1000)).toFixed(2));
 
         return (
-            <View>
+            <View style={{paddingTop:30}}>
                 <View style={styles.row}>
                     <View style={styles.column1}><Text/></View>
                     <View style={styles.column2}><Text/></View>
@@ -68,7 +68,7 @@ export default class MyView extends Component{
     }
 };
 const styles=StyleSheet.create({
-    row:{flexDirection:"row",width:"100%",borderBottomWidth:0.5,borderColor:"#BBB",paddingVertical:3},
+    row:{flexDirection:"row",width:"100%",paddingVertical:3},
     column1:{width:"15%",alignItems:"center"},
     column2:{width:"15%",alignItems:"center"},
     column3:{width:"30%",alignItems:"center"},

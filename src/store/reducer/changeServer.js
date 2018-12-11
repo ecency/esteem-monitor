@@ -1,9 +1,10 @@
-import {CHANGE_MARKETDATA_URL,CHANGE_SERVER_URL,PARTICIPATION_ALERT} from '../action/actionTypes';
+import {CHANGE_MARKETDATA_URL,CHANGE_SERVER_URL,PARTICIPATION_ALERT,CHANGE_THEME} from '../action/actionTypes';
 
 const initialState={
     serverUrl: "https://api.steemit.com",
     marketDataUrl:"http://api.esteem.ws:8080/api/market-data/",
     participationAlert:false,
+    mode:'night'
 };
 
 const reducer =(state=initialState,action)=> {
@@ -22,6 +23,11 @@ const reducer =(state=initialState,action)=> {
             return {
                 ...state,
                 participationAlert:action.participationAlert
+            };
+        case CHANGE_THEME:
+            return {
+                ...state,
+                mode:action.mode
             };
         default:
             return state;

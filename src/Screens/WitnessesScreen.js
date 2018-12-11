@@ -18,10 +18,10 @@ import {
     saveSubscription,
     getSubscription,
     deleteSubscription,
-    updateSubscription,
 } from './../components/ConnectionToServer/serverConfig';
 import myColors from '../GlobalStyles/colorConfig';
 import globalStyles from '../GlobalStyles/styles';
+
 const fcmToken = null;
 let subscribedWitnesses = null;
 
@@ -32,11 +32,12 @@ class WitnessesScreen extends Component {
         subscribed: false,
         subscribedToAll: false
     };
+
     componentWillMount() {
         this.fetchWitnessList();
     }
+
     onSubscribe = async (deviceId, item) => {
-        console.log("OnSubscribe pushhed");
         await saveSubscription(deviceId, item.owner);
         this.fetchWitnessList();
         ToastAndroid.showWithGravityAndOffset(
@@ -48,7 +49,6 @@ class WitnessesScreen extends Component {
         );
     };
     onDelete = async (deviceId, witness) => {
-        console.log("OnDelete pushhed");
         await deleteSubscription(deviceId, witness);
         this.fetchWitnessList();
         ToastAndroid.showWithGravityAndOffset(
@@ -67,16 +67,14 @@ class WitnessesScreen extends Component {
             fcmToken = await AsyncStorage.getItem('fcmToken');
             if (fcmToken) {
                 subscribedWitnesses = await getSubscription(fcmToken);
-                console.log("Subscribed witnessessss:", subscribedWitnesses);
-                if(subscribedWitnesses){
-                    if(subscribedWitnesses.length>50){
+                if (subscribedWitnesses) {
+                    if (subscribedWitnesses.length > 50) {
                         this.setState({
-                            subscribedToAll:true
+                            subscribedToAll: true
                         })
                     }
                 }
             }
-            //getParticipation(fcmToken);
             const client = new dsteem.Client(this.props.serverUrl);
             const witnesses = await client.database.call('get_witnesses_by_vote', ["", 70]);
             this.setState({
@@ -85,7 +83,7 @@ class WitnessesScreen extends Component {
             })
 
         } catch (e) {
-            console.log('Error', e)
+            alert('Error. Please reload the page', e)
         }
     };
     ifSubscribed = (witness) => {
@@ -103,7 +101,6 @@ class WitnessesScreen extends Component {
         this.setState({
             subscribedToAll: !this.state.subscribedToAll
         });
-        // console.log("Checked",this.state.subscribedToAll);
         if (!this.state.subscribedToAll) {
             this.state.witnessList.map((item) => {
                 saveSubscription(deviceId, item.owner);
@@ -130,13 +127,14 @@ class WitnessesScreen extends Component {
             );
         }
     };
+
     render() {
         return (
             <View style={globalStyles.contentWitnessScreen}>
                 <Header style={globalStyles.headers}>
                     <Left/>
                     <Body>
-                    <Title  style={globalStyles.headerTextColor}>Witnesses</Title>
+                    <Title style={globalStyles.headerText}>Witnesses</Title>
                     </Body>
                     <Right>
                         <ActivityIndicator
@@ -157,18 +155,14 @@ class WitnessesScreen extends Component {
                     </Right>
                 </Header>
                 <View style={{flexDirection: "row", width: "100%", borderBottomWidth: 1,}}>
-                    <View
-                        style={{
-                            width: "75%",
-                            alignItems: "center",
-                            justifyContent: 'center'
-                        }}><Text>Witness</Text></View>
-                    <View
-                        style={{width: "25%", alignItems: "center", justifyContent: 'center'}}>
+                    <View style={{width:'80%',alignItems:'flex-end'}}>
+                        <Text style={{fontSize: 10, color: myColors.defaultTextColor}}> Subscribe to all</Text>
+                    </View>
+                    <View style={{width:'20%'}}>
                         <TouchableOpacity
                             onPress={() => this.handleSubscribeToAll(fcmToken)}
+                            style={{alignItems:'center'}}
                         >
-                            <Text style={{fontSize: 10}}> Subscribe to all</Text>
                             <CheckBox
                                 checked={this.state.subscribedToAll}
                                 onPress={() => this.handleSubscribeToAll(fcmToken)}
@@ -204,6 +198,7 @@ class WitnessesScreen extends Component {
         )
     }
 }
+
 const mapStateToProps = state => {
     return {
         serverUrl: state.server.serverUrl,

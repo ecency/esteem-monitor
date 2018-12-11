@@ -8,8 +8,9 @@ import MySepView from '../components/SeparotorView'
 import {notificationListener, notificationOpenedListener} from '../components/Firebase/fbConfig';
 import MyView from '../components/MyView';
 import htmlContent from '../components/StatusScreenUI/htmlContent';
-import globalStyles from'../GlobalStyles/styles';
+import globalStyles from '../GlobalStyles/styles';
 import myColors from '../GlobalStyles/colorConfig';
+
 const fetchdata = null;
 const fetchMarketInfo = null;
 
@@ -20,14 +21,14 @@ class StatusScreen extends Component {
         opacity: 0,
     };
     handleMarketInfo = async () => {
-        try{
+        try {
             const data = await fetch(this.props.marketDataUrl);
             const json = await data.json();
             this.setState({
                 CurrencyInfo: json,
             })
-        }catch (e) {
-            console.log('Error occured while fetching data', e)
+        } catch (e) {
+            alert("Please check your internet connection and reload the page")
         }
 
     };
@@ -51,25 +52,23 @@ class StatusScreen extends Component {
             });
             const client = new dsteem.Client(this.props.serverUrl);
             const data1 = await client.database.getDynamicGlobalProperties();
-            console.log("data:", data1);
             this.setState({
                 opacity: 0,
                 source: data1
             });
         }
         catch (e) {
-            console.log('Error occured while fetching data', e)
-            //alert(`Sorry couldn't connect to server, please check your internet connection `)
+            alert("Please check your internet connection and reload the page")
         }
     };
 
     render() {
         return (
-            <View>
+            <View style={globalStyles.contentDashboard}>
                 <Header style={globalStyles.headers}>
                     <Left/>
                     <Body>
-                    <Title style={globalStyles.headerTextColor}>Dashboard</Title>
+                    <Title style={globalStyles.headerText}>Dashboard</Title>
                     </Body>
                     <Right style={{alignItems: "center", justifyContent: 'flex-end'}}>
                         <ActivityIndicator
@@ -90,10 +89,7 @@ class StatusScreen extends Component {
                     </Right>
                 </Header>
                 <ScrollView>
-                    <View style={globalStyles.contentDashboard}>
-                        <View style={styles.welcomeContainer}>
-                            <Text style={globalStyles.defaultBoldText}>Welcome to Steem Monitor</Text>
-                        </View>
+                    <View>
                         <MySepView
                             first={"Block:"}
                             second={this.state.source.head_block_number}
@@ -114,8 +110,6 @@ class StatusScreen extends Component {
                             first={"SBD Supply:"}
                             second={this.state.source.current_sbd_supply}
                         />
-                        <View style={{borderWidth: 1, backgroundColor: '#BBB', marginVertical: 20}}>
-                        </View>
                         {
                             this.state.CurrencyInfo && (
                                 <MyView
@@ -135,9 +129,9 @@ class StatusScreen extends Component {
                             )
                         }
                     </View>
-                    <View style={{height: 200, width: '100%'}}>
+                    <View style={{height: 200, width: '100%',paddingTop:30}}>
                         <WebView
-                            style={{height: '100%', width: '100%'}}
+                            style={{height: '100%', width: '100%',backgroundColor:myColors.contentBackGroundColor}}
                             originWhitelist={['*']}
                             source={{
                                 html: htmlContent

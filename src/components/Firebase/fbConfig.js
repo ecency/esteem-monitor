@@ -5,41 +5,35 @@ import {AsyncStorage} from "react-native";
 const  checkPermission = async ()=>{
     try {
         const enabled = await firebase.messaging().hasPermission();
-        console.log("enabled",enabled);
         if (enabled) {
             getToken();
         } else {
             requestPermission();
         }
     }catch (e) {
-        console.log("fcmError Getting Token",e)
+        alert("fcmError Getting Token",e)
     }
 };
 const requestPermission  = async ()=> {
     try {
         await firebase.messaging().requestPermission();
-        // User has authorised
         getToken();
     } catch (error) {
-        // User has rejected permissions
-        console.log('permission rejected');
+        alert(error)
     }
 };
 const getToken = async ()=> {
     try{
         let fcmToken = await AsyncStorage.getItem('fcmToken');
-        console.log("storage Token",fcmToken);
         if (!fcmToken) {
             fcmToken = await firebase.messaging().getToken();
-            console.log(' Firebase fcmtoken',fcmToken);
             if (fcmToken) {
-                // user has a device token
                 await AsyncStorage.setItem('fcmToken', fcmToken);
             }
         }
     }
     catch (e) {
-        console.log('error for getting token',e)
+        alert('error for getting token',e)
     }
 };
 const createNotificationListeners = async ()=>{
@@ -64,7 +58,7 @@ const showAlert =(title, body)=> {
     Alert.alert(
         title, body,
         [
-            { text: 'OK', onPress: () => console.log('OK Pressed') },
+            { text: 'OK', onPress: () => alert(title, body) },
         ],
         { cancelable: false },
     );
