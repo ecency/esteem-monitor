@@ -26,7 +26,7 @@ To deploy the project and launch the application you need:
 ## What is Steem?
 Steem is a blockchain-based social media platform where anyone can earn rewards. The Steem blockchain not only holds a cryptocurrency token called STEEM, but also content created by its users, a system to vote on that content, and many other features you would find on popular social networking sites.
 
-Visit httpa://esteem.app for more info about development and project.
+Visit https://esteem.app for more info about development and project.
 
 # License
 
