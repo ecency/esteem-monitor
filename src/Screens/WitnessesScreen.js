@@ -19,8 +19,8 @@ import {
     getSubscription,
     deleteSubscription,
 } from './../components/ConnectionToServer/serverConfig';
-import myColors from '../GlobalStyles/colorConfig';
 import globalStyles from '../GlobalStyles/styles';
+import EStyleSheet from "react-native-extended-stylesheet";
 
 const fcmToken = null;
 let subscribedWitnesses = null;
@@ -30,11 +30,20 @@ class WitnessesScreen extends Component {
         fetching: false,
         witnessList: [],
         subscribed: false,
-        subscribedToAll: false
+        subscribedToAll: false,
+        rerender:false,
     };
 
     componentWillMount() {
         this.fetchWitnessList();
+    }
+    componentWillReceiveProps(nextProps) {
+        const { mode: _mode} = this.props;
+        if (_mode !== nextProps.mode ) {
+            this.setState({
+               rerender:!this.state.rerender
+            });
+        }
     }
 
     onSubscribe = async (deviceId, item) => {
@@ -139,7 +148,7 @@ class WitnessesScreen extends Component {
                     <Right>
                         <ActivityIndicator
                             size="large"
-                            color={myColors.activityIndicatorColor}
+                            color={styles.$activityIndicatorColor}
                             animating={this.state.fetching}
                         />
                         <Button
@@ -149,14 +158,14 @@ class WitnessesScreen extends Component {
                             <FontAwesome
                                 size={22}
                                 name="refresh"
-                                color={myColors.headerButtonColor}
+                                color={styles.$headerButton}
                             />
                         </Button>
                     </Right>
                 </Header>
                 <View style={{flexDirection: "row", width: "100%", borderBottomWidth: 1,}}>
                     <View style={{width:'80%',alignItems:'flex-end'}}>
-                        <Text style={{fontSize: 10, color: myColors.defaultTextColor}}> Subscribe to all</Text>
+                        <Text style={styles.subscribeTextStyle}> Subscribe to all</Text>
                     </View>
                     <View style={{width:'20%'}}>
                         <TouchableOpacity
@@ -198,10 +207,16 @@ class WitnessesScreen extends Component {
         )
     }
 }
+const styles = EStyleSheet.create({
+    $headerButton:'$headerButtonColor',
+    $activityIndicatorColor:"#324192",
+    subscribeTextStyle:{fontSize: 10, color: '$defaultTextColor'},
+});
 
 const mapStateToProps = state => {
     return {
         serverUrl: state.server.serverUrl,
+        mode:state.server.mode
     };
 };
 export default connect(mapStateToProps)(WitnessesScreen);

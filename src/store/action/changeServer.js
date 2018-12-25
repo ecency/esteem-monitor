@@ -21,11 +21,13 @@ export const toggleParticipation = (value) => {
 };
 export const changeTheme = (value) => {
     let mode = '';
+    console.log('switch',value);
     if (value) {
         mode = 'day'
     } else {
         mode = 'night'
     }
+    console.log('mode',mode);
     return {
         type: CHANGE_THEME,
         mode: mode

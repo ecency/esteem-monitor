@@ -1,7 +1,6 @@
 import { createStore,combineReducers , compose} from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import {AsyncStorage} from 'react-native';
-// import storage from 'redux-persist/lib/storage';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import changeServer from './reducer/changeServer';
 const rootReducer = combineReducers({

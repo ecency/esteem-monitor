@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, Text, ActivityIndicator, StyleSheet, WebView, ScrollView} from 'react-native';
+import {View, ActivityIndicator, StyleSheet, WebView, ScrollView} from 'react-native';
 import {Header, Title, Button, Right, Left, Body} from 'native-base';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import * as dsteem from 'dsteem';
 import MySepView from '../components/SeparotorView'
 import {notificationListener, notificationOpenedListener} from '../components/Firebase/fbConfig';
 import MyView from '../components/MyView';
-import htmlContent from '../components/StatusScreenUI/htmlContent';
+import htmlContentDark from '../components/StatusScreenUI/htmlContentDark';
+import htmlContentLight from '../components/StatusScreenUI/htmlContentLight';
 import globalStyles from '../GlobalStyles/styles';
-import myColors from '../GlobalStyles/colorConfig';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 const fetchdata = null;
 const fetchMarketInfo = null;
@@ -63,6 +64,8 @@ class StatusScreen extends Component {
     };
 
     render() {
+        let isDarkTeme;
+        isDarkTeme = this.props.mode !== 'day';
         return (
             <View style={globalStyles.contentDashboard}>
                 <Header style={globalStyles.headers}>
@@ -73,8 +76,8 @@ class StatusScreen extends Component {
                     <Right style={{alignItems: "center", justifyContent: 'flex-end'}}>
                         <ActivityIndicator
                             size={35}
-                            color={myColors.activityIndicatorColor}
-                            animating={this.state.true}
+                            color={styles.$activityIndicatorColor}
+                            animating={true}
                             style={{height: 80, marginTop: 10, opacity: this.state.opacity}}
                         />
                         <Button transparent
@@ -83,7 +86,7 @@ class StatusScreen extends Component {
                             <FontAwesome
                                 size={22}
                                 name="refresh"
-                                color={myColors.headerButtonColor}
+                                color={styles.$headerButton}
                             />
                         </Button>
                     </Right>
@@ -129,12 +132,12 @@ class StatusScreen extends Component {
                             )
                         }
                     </View>
-                    <View style={{height: 200, width: '100%',paddingTop:30}}>
+                    <View style={styles.webViewStyle}>
                         <WebView
-                            style={{height: '100%', width: '100%',backgroundColor:myColors.contentBackGroundColor}}
+                            style={styles.webViewContentStyle}
                             originWhitelist={['*']}
                             source={{
-                                html: htmlContent
+                                html: isDarkTeme ? htmlContentDark : htmlContentLight
                             }}
                         />
                     </View>
@@ -143,18 +146,18 @@ class StatusScreen extends Component {
         )
     }
 }
-
-const styles = StyleSheet.create({
-    welcomeContainer: {alignItems: 'center', justifyContent: 'center'},
-    welcomeText: {fontSize: 16, color: 'blue', fontWeight: 'bold'},
-    content: {paddingHorizontal: 20, paddingVertical: 5},
-    chart: {height: 100, width: '100%'}
+const styles = EStyleSheet.create({
+    $headerButton:'$headerButtonColor',
+    $activityIndicatorColor:"#324192",
+    webViewStyle:{height: 200, width: '100%',paddingTop:30},
+    webViewContentStyle:{height: '100%', width: '100%',backgroundColor:'$contentBackGroundColor'} ,
 });
 
 const mapStateToProps = state => {
     return {
         serverUrl: state.server.serverUrl,
-        marketDataUrl: state.server.marketDataUrl
+        marketDataUrl: state.server.marketDataUrl,
+        mode:state.server.mode
     };
 };
 export default connect(mapStateToProps)(StatusScreen);

@@ -6,7 +6,7 @@ import {Header, Title, Right, Left, Body} from 'native-base';
 import {updateParticipation, getParticipation} from "../components/ConnectionToServer/serverConfig";
 import Icon from 'react-native-vector-icons/Foundation';
 import globalStyles from '../GlobalStyles/styles';
-import myColors from "../GlobalStyles/colorConfig";
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 let fcmtoken = null;
 
@@ -88,7 +88,7 @@ class SettingsScreen extends Component {
         if (this.state.editable1) {
             return (
                 <TouchableOpacity onPress={() => this.handleServerUrlChanged(this.state.textinput1)}>
-                    <Text style={{color: myColors.defaultTextColor}}>OK</Text>
+                    <Text style={{color: styles.$defaultText}}>OK</Text>
                 </TouchableOpacity>
             );
         } else {
@@ -99,7 +99,7 @@ class SettingsScreen extends Component {
                     <Icon
                         name="pencil"
                         size={20}
-                        color={myColors.defaultTextColor}
+                        color={styles.$defaultText}
                     />
                 </TouchableOpacity>
             );
@@ -109,7 +109,7 @@ class SettingsScreen extends Component {
         if (this.state.editable2) {
             return (
                 <TouchableOpacity onPress={() => this.handleMarketDataUrlChanged(this.state.textinput2)}>
-                    <Text style={{color: myColors.defaultTextColor}}>OK</Text>
+                    <Text style={{color: styles.$defaultText}}>OK</Text>
                 </TouchableOpacity>
             );
         } else {
@@ -120,31 +120,30 @@ class SettingsScreen extends Component {
                     <Icon
                         name="pencil"
                         size={20}
-                        color={myColors.defaultTextColor}
+                        color={styles.$defaultText}
                     />
                 </TouchableOpacity>
             );
         }
     };
     handleTheme = (value) => {
-        this.props.changeTheme(value);
+        this.props.onChangeTheme(value);
         this.setState({
             themeSwitch: !this.state.themeSwitch
         });
-        this.forceUpdate();
     };
     renderThemeSwitch = () => {
         if (this.state.themeSwitch) {
             return (
                 <View style={{flexDirection: 'row', width: '100%',paddingTop:20}}>
                     <View style={{width: '25%', alignItems: 'center'}}>
-                        <Text style={{color: myColors.defaultTextColor}}>Day Mode</Text>
+                        <Text style={{color: styles.$defaultText}}>Day Mode</Text>
                     </View>
                     <View style={{width: '75%', justifyContent: 'center', alignItems: 'flex-end'}}>
                         <Switch
-                            onTintColor={myColors.circleWitnessScreen}
-                            tintColor={myColors.defaultTextColor}
-                            thumbTintColor={myColors.witnessListSecondaryTextColor}
+                            onTintColor={styles.$circleWitness}
+                            tintColor={styles.$defaultText}
+                            thumbTintColor={styles.$witnessListSecondaryText}
                             onValueChange={(value) => this.handleTheme(value)}
                             value={this.state.themeSwitch}
                         />
@@ -156,13 +155,13 @@ class SettingsScreen extends Component {
             return (
                 <View style={{flexDirection: 'row', width: '100%',paddingTop:20}}>
                     <View style={{width: '25%', alignItems: 'center'}}>
-                        <Text style={{color: myColors.defaultTextColor}}>Night Mode</Text>
+                        <Text style={{color: styles.$defaultText}}>Night Mode</Text>
                     </View>
                     <View style={{width: '75%', justifyContent: 'center', alignItems: 'flex-end'}}>
                         <Switch
-                            onTintColor={myColors.circleWitnessScreen}
-                            tintColor={myColors.defaultTextColor}
-                            thumbTintColor={myColors.witnessListSecondaryTextColor}
+                            onTintColor={styles.$circleWitness}
+                            tintColor={styles.$defaultText}
+                            thumbTintColor={styles.$witnessListSecondaryText}
                             onValueChange={(value) => this.handleTheme(value)}
                             value={this.state.themeSwitch}
                         />
@@ -190,9 +189,9 @@ class SettingsScreen extends Component {
                     </View>
                     <View style={{width: "30%"}}>
                         <Switch
-                            onTintColor={myColors.circleWitnessScreen}
-                            tintColor={myColors.defaultTextColor}
-                            thumbTintColor={myColors.witnessListSecondaryTextColor}
+                            onTintColor={styles.$circleWitness}
+                            tintColor={styles.$defaultText}
+                            thumbTintColor={styles.$witnessListSecondaryText}
                             onValueChange={(value) => this.handleOnToggle(value)}
                             value={this.props.participationAlert}
                         />
@@ -205,7 +204,7 @@ class SettingsScreen extends Component {
                         </View>
                         <View style={{alignItems: 'flex-start', justifyContent: 'center', width: '65%'}}>
                             <TextInput
-                                placeholderTextColor={myColors.witnessListSecondaryTextColor}
+                                placeholderTextColor={styles.$witnessListSecondaryText}
                                 style={{fontSize: 12, width: '100%'}}
                                 placeholder={this.props.serverUrl}
                                 editable={this.state.editable1}
@@ -222,7 +221,7 @@ class SettingsScreen extends Component {
                         </View>
                         <View style={{alignItems: 'flex-start', justifyContent: 'center', width: '65%'}}>
                             <TextInput
-                                placeholderTextColor={myColors.witnessListSecondaryTextColor}
+                                placeholderTextColor={styles.$witnessListSecondaryText}
                                 style={{fontSize: 12, width: '100%'}}
                                 placeholder={this.props.marketDataUrl}
                                 editable={this.state.editable2}
@@ -242,6 +241,12 @@ class SettingsScreen extends Component {
     }
 }
 
+const styles=EStyleSheet.create({
+    $defaultText:'$defaultTextColor',
+    $circleWitness:'$circleWitnessScreen',
+    $witnessListSecondaryText:'$witnessListSecondaryTextColor',
+});
+
 const mapStateToProps = state => {
     return {
         serverUrl: state.server.serverUrl,
@@ -255,7 +260,7 @@ const mapDispatchToProps = dispatch => {
         onChangeServerUrl: (url) => dispatch(changeServerUrl(url)),
         onChangeMarketDataUrl: (url) => dispatch(changeMarketDataUrl(url)),
         onToggleParticipation: (value) => dispatch(toggleParticipation(value)),
-        changeTheme: (value) => dispatch(changeTheme(value))
+        onChangeTheme: (value) => dispatch(changeTheme(value))
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsScreen);

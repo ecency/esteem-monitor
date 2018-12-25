@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {View,Text, StyleSheet}from 'react-native'
+import {View,Text}from 'react-native'
 import {MyText1,MyText2} from './MyCustomTexts';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 export default class MyView extends Component{
     interval=(time)=>{
@@ -67,7 +68,7 @@ export default class MyView extends Component{
         );
     }
 };
-const styles=StyleSheet.create({
+const styles = EStyleSheet.create({
     row:{flexDirection:"row",width:"100%",paddingVertical:3},
     column1:{width:"15%",alignItems:"center"},
     column2:{width:"15%",alignItems:"center"},
